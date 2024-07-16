@@ -3,7 +3,7 @@
 > Coding Flutter in React way
 
 This is an experiment to see if it's possible to code Flutter in React way.
-I ignored performance problems caused by helper methods/functional widgets,
+I ignored performance issues caused by helper methods/functional widgets,
 this project is just for fun. Don't be so serious.
 
 Check a simple counter example below:
