@@ -6,63 +6,92 @@ This is an experiment to see if it's possible to code Flutter in React way.
 I ignored performance issues caused by helper methods/functional widgets,
 this project is just for fun. Don't be so serious.
 
-Check a simple counter example below:
+Check the examples below: A counter shared state between multiple widgets.
 
 ```dart
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import '/react.dart';
 
-Widget counter() {
-  var count = useState(0);
+var counter = useState(0);
 
-  increment() {
-    count.setState((value) => value + 1);
-  }
+incrementAction() {
+  counter.setState((value) => value + 1);
+}
 
-  decrement() {
-    count.setState((value) => value - 1);
-  }
+decrementAction() {
+  counter.setState((value) => value - 1);
+}
 
-  count.useEffect(() {
-    debugPrint('count: ${count.value}');
-  });
+Widget incrementCounter() {
+  print('Building increment button');
 
-  return Render(
-    valueListenable: count,
+  return const FilledButton(
+    onPressed: incrementAction,
+    child: Text('Increment'),
+  );
+}
+
+Widget decrementCounter() {
+  print('Building decrement button');
+
+  return const FilledButton(
+    onPressed: decrementAction,
+    child: Text('Decrement'),
+  );
+}
+
+Widget displayCounter() {
+  return RenderGlobal(
+    valueListenable: counter,
     builder: (context, value, child) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FilledButton(
-                onPressed: increment,
-                child: const Text('Increment'),
-              ),
-              const SizedBox(width: 10),
-              Text('$value'),
-              const SizedBox(width: 10),
-              FilledButton(
-                onPressed: decrement,
-                child: const Text('Decrement'),
-              ),
-            ],
-          ),
-        ],
+      print('Building display counter');
+
+      return Text(
+        counter.value.toString(),
+        style: const TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
       );
     },
   );
 }
+
+Widget shareStatePage() {
+  counter.useEffect(() {
+    print('Counter changed to ${counter.value}');
+  });
+
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Shared State'),
+    ),
+    body: Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          incrementCounter(),
+          const SizedBox(width: 10),
+          displayCounter(),
+          const SizedBox(width: 10),
+          decrementCounter(),
+        ],
+      ),
+    ),
+  );
+}
 ```
+
+In the example above, all widgets are provides by functions. The `useState` works like a 'global' state and is shared between all widgets. The `useEffect` is called when the state changes and `RenderGlobal` performs side effects to rebuild the view. The state and actions are completely separated from the widgets.
 
 ### Examples
 
-- [X] Counter
-- [ ] Todo List
-- [ ] Async Todo list
-- [ ] Shared state
-- [ ] Sqlite Crud
+[Stateless widgets and composition](#)
+[Statefull widget](#)
+[Sharing state](#)
 
 ---
 
