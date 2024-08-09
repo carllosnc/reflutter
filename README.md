@@ -90,7 +90,7 @@ In the example above, all widgets are provides by functions. The `useState` work
 ### Examples
 
 - [Stateless widgets and composition](https://github.com/carllosnc/reflutter/tree/master/lib/examples/stateless_widgets)
-- [Statefull widget](https://github.com/carllosnc/reflutter/tree/master/lib/examples/stateful_components)
+- [Statefull widget](https://github.com/carllosnc/reflutter/tree/master/lib/examples/stateful_widgets)
 - [Sharing state](https://github.com/carllosnc/reflutter/tree/master/lib/examples/shared_state)
 
 ---
