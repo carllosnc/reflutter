@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '/examples/counter/counter.dart';
+import 'home.dart';
+import 'examples/stateless_widgets/stateless_widgets_page.dart';
+import 'examples/stateful_components/stateful_widgets_page.dart';
+import 'examples/shared_state/share_state_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,11 +14,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: counter(),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => home(context),
+        '/stateless_widgets': (context) => statelessWidgetsPage(context),
+        '/stateful_widgets': (context) => statefulWidgetPage(),
+        '/share_state': (context) => shareStatePage(),
+      },
     );
   }
 }
