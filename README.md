@@ -59,7 +59,7 @@ Widget displayCounter() {
   );
 }
 
-Widget shareStatePage() {
+Widget page() {
   counter.useEffect(() {
     print('Counter changed to ${counter.value}');
   });
