@@ -6,7 +6,7 @@ This is an experiment to see if it's possible to code Flutter in React way.
 I ignored performance issues caused by helper methods/functional widgets,
 this project is just for fun. Don't be so serious.
 
-Check the examples below: A counter shared state between multiple widgets.
+Check the examples below: A counter sharing state between multiple widgets.
 
 ```dart
 // ignore_for_file: avoid_print
