@@ -108,6 +108,8 @@ decrementAction() {
 }
 ```
 
+The object provided by `useState` have the following methods:
+
 | Methods       | Description                                             |
 | ------------- | ------------------------------------------------------- |
 | `useEffect`   | register a callback to be called when the state changes |
