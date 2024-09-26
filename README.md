@@ -233,6 +233,18 @@ Container(
 ).card;
 ```
 
+## New project
+
+**1 - Creating new empty Fluhtter project**
+
+```shell
+flutter create -e --android-language=kotlin --ios-language=swift --project-name=example --org=cnc --platforms=android app_name
+```
+
+**2 - Adding [react.dart](https://github.com/carllosnc/reflutter/blob/master/lib/react.dart) file**
+
+`React.dart` is a simple file that will provide access to `useState`, `RenderLocal` and `RenderGlobal` widgets, add to the project and import as you need.
+
 ---
 
 Carlos Costa @ 2024
