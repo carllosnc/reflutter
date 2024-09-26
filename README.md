@@ -85,15 +85,15 @@ Widget page() {
 
 In the example above, all widgets are provides by functions. The `useState` works like a 'global' state and is shared between all widgets. The `useEffect` is called when the state changes and `RenderGlobal` performs side effects to rebuild the view. The state and actions are completely separated from the widgets.
 
-### Examples
+## Examples
 
 - [Stateless widgets and composition](https://github.com/carllosnc/reflutter/tree/master/lib/examples/stateless_widgets)
 - [Statefull widget](https://github.com/carllosnc/reflutter/tree/master/lib/examples/stateful_widgets)
 - [Sharing state](https://github.com/carllosnc/reflutter/tree/master/lib/examples/shared_state)
 
-### Core concepts
+## Core concepts
 
-**useState**
+### useState
 >define a reactive variable that can be used in multiple widgets
 
 ```dart
@@ -114,7 +114,7 @@ decrementAction() {
 | `removeEfect` | remove a callback from the list of callbacks            |
 | `setState`    | update the state value                                  |
 
-**RenderLocal**
+### RenderLocal
 > perform side effects to rebuild widget when the state is defined inside the component
 
 ```dart
@@ -136,7 +136,7 @@ Widget counter(){
 }
 ```
 
-**GlobalRender**
+### GlobalRender
 > perform side effects to rebuild widget when the state is defined outside the component
 
 ```dart
