@@ -164,6 +164,75 @@ Knowning the concept of `LocalRender` and `GlobalRender` we can define a simple 
 - **LocalRender**: use for simple state for a unique widget
 - **GlobalRender**: use to share state with multiple widget
 
+## Isolating rendering
+
+To avoid rebuilding some widgets we can isolate `RenderLocal` and `RenderGlobal` using a simple `Column` or another widget that accepts a list of widgets.
+
+```dart
+Widget counter(){
+  var counter = useState(0);
+
+  increment() {
+    counter.setState((value) => value + 1);
+  }
+
+  return Column(
+    children: [
+      //This widget will not be rebuild when the state changes
+      Text("Hello world"),
+      //
+      RenderLocal(
+        FilledButton(
+          onPressed: increment,
+          child: Text(counter.value.toString()),
+        ),
+      )
+    ],
+  );
+}
+```
+
+## Custom components(widgets)
+
+Dart has a fantastic called [Extension Methods](https://dart.dev/guides/language/extension-methods) that allows us to add methods to existing classes. It will be useful to help us to create components and styles.
+
+**Example** Let's create a card component apply a new method to the `Container` widget.
+
+```dart
+extension ContainerExtension on Container {
+  Container get card {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      width: 300,
+      height: 200,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.black, width: 4),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        color: Colors.red.shade100,
+      ),
+      child: child,
+    );
+  }
+}
+```
+
+In the example above, we are creating a new method `card` that returns a `Container` with a custom style. To use it, we can simply call the method on the `Container` widget.
+
+```dart
+Container(
+  child: Text("Hello world"),
+).card;
+```
+
 ---
 
 Carlos Costa @ 2024
