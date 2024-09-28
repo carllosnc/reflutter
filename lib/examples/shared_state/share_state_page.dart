@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '/react.dart';
 
-var counter = useState(0);
+var counter = globalState(0);
 
 incrementAction() {
   counter.setState((value) => value + 1);

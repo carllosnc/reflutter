@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class useState extends ValueNotifier {
-  useState(super.value);
+class globalState extends ValueNotifier {
+  globalState(super.value);
 
   useEffect(Function() callback) {
     addListener(callback);
