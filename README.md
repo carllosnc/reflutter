@@ -12,7 +12,7 @@ Check the examples below: A counter sharing state between multiple widgets.
 import 'package:flutter/material.dart';
 import '/react.dart';
 
-var counter = useState(0);
+var counter = globalState(0);
 
 incrementAction() {
   counter.setState((value) => value + 1);
@@ -83,7 +83,7 @@ Widget page() {
 }
 ```
 
-In the example above, all widgets are provides by functions. The `useState` works like a 'global' state and is shared between all widgets. The `useEffect` is called when the state changes and `RenderGlobal` performs side effects to rebuild the view. The state and actions are completely separated from the widgets.
+In the example above, all widgets are provides by functions. The `globalState` works like a 'global' state and is shared between all widgets. The `useEffect` is called when the state changes and `RenderGlobal` performs side effects to rebuild the view. The state and actions are completely separated from the widgets.
 
 ## Examples
 
@@ -93,11 +93,11 @@ In the example above, all widgets are provides by functions. The `useState` work
 
 ## Core concepts
 
-### useState
+### globalState
 >define a reactive variable that can be used in multiple widgets
 
 ```dart
-var counter = useState(0);
+var counter = globalState(0);
 
 incrementAction() {
   counter.setState((value) => value + 1);
@@ -108,7 +108,7 @@ decrementAction() {
 }
 ```
 
-The object provided by `useState` have the following methods:
+The object provided by `globalState` have the following methods:
 
 | Methods       | Description                                             |
 | ------------- | ------------------------------------------------------- |
@@ -117,50 +117,72 @@ The object provided by `useState` have the following methods:
 | `setState`    | update the state value                                  |
 
 ### RenderLocal
-> perform side effects to rebuild widget when the state is defined inside the component
+> Reactive widget that updates when the state is defined inside the component
 
 ```dart
-Widget counter(){
-  //useState defined inside the component
-  var counter = useState(0);
+Widget counter() {
+  //local variable defined inside the component
+  var count = 0;
 
-  increment() {
-    counter.setState((value) => value + 1);
+  //action that updates the state
+  void increment() {
+    count++;
   }
 
-  // RenderLocal is used to perform side effects(reactivity)
   return RenderLocal(
-    FilledButton(
-      onPressed: increment,
-      child: Text(counter.value.toString()),
-    ),
-  )
+    builder: (context, setState) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FilledButton(
+            //call the action to update the state
+            //setState will rebuild the widget
+            onPressed: () => setState(increment),
+            child: Text('Increment: $count'),
+          ),
+        ],
+      );
+    },
+  );
 }
 ```
 
 ### GlobalRender
-> perform side effects to rebuild widget when the state is defined outside the component
+> Reactive widget that updates when the state is defined outside the component
 
 ```dart
-//useState defined outside the component
-var counter = useState(0);
+//global state that can be used in multiple widgets
+var counter = globalState(0);
 
-//here, actions can be defined outside the component
+//action that updates the state
 increment() {
   counter.setState((value) => value + 1);
 }
 
-Widget counter(){
+counter.useEffect(() {
+  print('Counter changed to ${counter.value}');
+});
 
-  //to perform side effects we need to use GlobalRender
-  return GlobalRender(
-    FilledButton(
-      onPressed: increment,
-      child: Text(counter.value.toString()),
-    ),
-  )
+Widget incrementButton() {
+  return FilledButton(
+    onPressed: increment,
+    child: Text('Increment ${counter.value}'),
+  );
+}
+
+Widget globalCounter() {
+  //render global that will rebuild when the state changes
+  return RenderGlobal(
+    valueListenable: counter,
+    builder: (context, value, child) {
+      return incrementButton();
+    },
+  );
 }
 ```
+
+`globalState` is just a rename of `ValueNotifier` to see more details check the official [documentation](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) and `RenderGlobal` is a rename of `ValueListenableBuilder` see more in [documentation](https://api.flutter.dev/flutter/widgets/ValueListenableBuilder-class.html).
+
 Knowning the concept of `LocalRender` and `GlobalRender` we can define a simple rule.
 
 - **LocalRender**: use for simple state for a unique widget
@@ -172,7 +194,7 @@ To avoid rebuilding some widgets we can isolate `RenderLocal` and `RenderGlobal`
 
 ```dart
 Widget counter(){
-  var counter = useState(0);
+  var counter = globalState(0);
 
   increment() {
     counter.setState((value) => value + 1);
@@ -245,7 +267,7 @@ flutter create -e --android-language=kotlin --ios-language=swift --project-name=
 
 **2 - Add [react.dart](https://github.com/carllosnc/reflutter/blob/master/lib/react.dart) file**
 
-`React.dart` is a simple file that will provide access to `useState`, `RenderLocal` and `RenderGlobal` widgets, add to the project and import as you need.
+`React.dart` is a simple file that will provide access to `globalState`, `RenderLocal` and `RenderGlobal` widgets, add to the project and import as you need.
 
 ---
 
