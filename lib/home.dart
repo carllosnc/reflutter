@@ -21,6 +21,10 @@ Scaffold home(
           title: const Text('Shared State'),
           onTap: () => Navigator.of(context).pushNamed('/share_state'),
         ),
+        ListTile(
+          title: const Text('Doc Examples'),
+          onTap: () => Navigator.of(context).pushNamed('/doc_examples'),
+        ),
       ],
     ),
   );

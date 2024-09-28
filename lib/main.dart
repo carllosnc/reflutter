@@ -3,6 +3,7 @@ import 'home.dart';
 import 'examples/stateless_widgets/stateless_widgets_page.dart';
 import 'examples/stateful_widgets/stateful_widgets_page.dart';
 import 'examples/shared_state/share_state_page.dart';
+import 'examples/doc_examples/doc_examples.dart';
 
 void main() {
   runApp(const MainApp());
@@ -20,6 +21,7 @@ class MainApp extends StatelessWidget {
         '/stateless_widgets': (context) => statelessWidgetsPage(context),
         '/stateful_widgets': (context) => statefulWidgetPage(),
         '/share_state': (context) => shareStatePage(),
+        '/doc_examples': (context) => docExamplesPage(),
       },
     );
   }
