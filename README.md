@@ -147,7 +147,7 @@ Widget counter() {
 }
 ```
 
-### GlobalRender
+### RenderGlobal
 > Reactive widget that updates when the state is defined outside the component
 
 ```dart
