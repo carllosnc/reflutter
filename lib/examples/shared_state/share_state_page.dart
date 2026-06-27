@@ -38,7 +38,7 @@ Widget displayCounter() {
       print('Building display counter');
 
       return Text(
-        counter.value.toString(),
+        value.toString(),
         style: const TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
@@ -49,25 +49,25 @@ Widget displayCounter() {
 }
 
 Widget shareStatePage() {
-  counter.useEffect(() {
-    print('Counter changed to ${counter.value}');
-  });
-
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('Shared State'),
-    ),
-    body: Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          incrementCounter(),
-          const SizedBox(width: 10),
-          displayCounter(),
-          const SizedBox(width: 10),
-          decrementCounter(),
-        ],
+  return RenderEffect(
+    listenable: counter,
+    effect: () => print('Counter changed to ${counter.value}'),
+    child: Scaffold(
+      appBar: AppBar(
+        title: const Text('Shared State'),
+      ),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            incrementCounter(),
+            const SizedBox(width: 10),
+            displayCounter(),
+            const SizedBox(width: 10),
+            decrementCounter(),
+          ],
+        ),
       ),
     ),
   );

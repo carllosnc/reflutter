@@ -25,6 +25,10 @@ Scaffold home(
           title: const Text('Doc Examples'),
           onTap: () => Navigator.of(context).pushNamed('/doc_examples'),
         ),
+        ListTile(
+          title: const Text('Hooks'),
+          onTap: () => Navigator.of(context).pushNamed('/hooks'),
+        ),
       ],
     ),
   );
